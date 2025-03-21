@@ -1,7 +1,7 @@
 name: easy_design_system
 description: "Elegant and easy-to-use UI/UX design library for Flutter, crafted to enhance your app's aesthetics and user experience."
 version: 0.0.29
-homepage: https://github.com/thruthesky/easy_packages/
+homepage: https://thruthesky.github.io/easy_design_system_backup_2024_09_24/
 environment:
   sdk: ">=3.3.3 <4.0.0"
   flutter: ">=1.17.0"
@@ -18,8 +18,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.0
 
-repository: https://github.com/thruthesky/easy_packages/tree/main/easy_design_system
-issue_tracker: https://github.com/thruthesky/easy_packages/issues
+repository: https://github.com/thruthesky/easy_design_system
+issue_tracker: https://github.com/thruthesky/easy_design_system/issues
 topics:
   - design-system
   - widgets
