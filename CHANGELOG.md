@@ -1,3 +1,8 @@
+## 0.1.0
+
+- Update the Dart SDK constraint to `>=3.8.1 <4.0.0`
+- Support up-to-date dependencies
+
 ## 0.0.29
 
 - Document update.
