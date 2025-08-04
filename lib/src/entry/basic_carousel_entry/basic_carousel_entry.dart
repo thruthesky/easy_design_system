@@ -5,11 +5,7 @@ import 'package:loop_page_view/loop_page_view.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-typedef BasicCarouselItem = ({
-  Widget title,
-  Widget subtitle,
-  Widget image,
-});
+typedef BasicCarouselItem = ({Widget title, Widget subtitle, Widget image});
 
 /// Round Carousel Entry
 ///
@@ -55,20 +51,23 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
     super.initState();
 
     if (widget.autoSwipeInterval > 100) {
-      autoSwipe = Timer.periodic(Duration(milliseconds: widget.autoSwipeInterval), (timer) {
-        if (mounted) {
-          controller
-              .nextPage(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.ease,
-          )
-              .then((value) {
-            if (!mounted) return;
-            // then 에서 해야 올바른 페이지 번호가 나옴
-            indicator.add(controller.page.toInt());
-          });
-        }
-      });
+      autoSwipe = Timer.periodic(
+        Duration(milliseconds: widget.autoSwipeInterval),
+        (timer) {
+          if (mounted) {
+            controller
+                .nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                )
+                .then((value) {
+                  if (!mounted) return;
+                  // then 에서 해야 올바른 페이지 번호가 나옴
+                  indicator.add(controller.page.toInt());
+                });
+          }
+        },
+      );
     }
   }
 
@@ -83,9 +82,7 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
   @override
   Widget build(BuildContext context) {
     if (widget.items.isEmpty) {
-      return const Center(
-        child: Text('No items'),
-      );
+      return const Center(child: Text('No items'));
     }
     // 스와이프 제스쳐를 받아서, ListView 나 Indicator 등을 업데이트
     return GestureDetector(
@@ -103,24 +100,24 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
             // 오른쪽으로 스와이프'
             controller
                 .previousPage(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            )
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                )
                 .then((value) {
-              // then 에서 해야 올바른 페이지 번호가 나옴
-              indicator.add(controller.page.toInt());
-            });
+                  // then 에서 해야 올바른 페이지 번호가 나옴
+                  indicator.add(controller.page.toInt());
+                });
           } else if (updateDetails!.delta.dx < 0) {
             //  왼쪽으로 스와이프'
             controller
                 .nextPage(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            )
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                )
                 .then((value) {
-              // then 에서 해야 올바른 페이지 번호가 나옴
-              indicator.add(controller.page.toInt());
-            });
+                  // then 에서 해야 올바른 페이지 번호가 나옴
+                  indicator.add(controller.page.toInt());
+                });
           }
         }
       },
@@ -132,9 +129,7 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Container(
-                color: Theme.of(context).colorScheme.surface,
-              ),
+              child: Container(color: Theme.of(context).colorScheme.surface),
             ),
 
             /// Background
@@ -158,7 +153,8 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: widget.bottomGradient ??
+                  child:
+                      widget.bottomGradient ??
                       Container(
                         height: MediaQuery.of(context).size.height * .3,
                         decoration: BoxDecoration(
@@ -167,7 +163,7 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(.99),
+                              Colors.black.withValues(alpha: .99),
                             ],
                           ),
                         ),
@@ -203,7 +199,8 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
                         dotWidth: 8.0,
                         dotHeight: 8.0,
                         dotColor: widget.indicatorColor ?? Colors.white,
-                        activeDotColor: widget.indicatorActiveColor ?? Colors.white,
+                        activeDotColor:
+                            widget.indicatorActiveColor ?? Colors.white,
                       ),
                     );
                   },
@@ -218,16 +215,17 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
               right: 0,
               child: Center(
                 child: StreamBuilder<Object>(
-                    stream: indicator,
-                    builder: (context, snapshot) {
-                      return widget.items[int.parse(snapshot.data?.toString() ?? '0')].title;
-                    }),
+                  stream: indicator,
+                  builder: (context, snapshot) {
+                    return widget
+                        .items[int.parse(snapshot.data?.toString() ?? '0')]
+                        .title;
+                  },
+                ),
               ),
             ),
 
-            SizedBox(
-              height: widget.titleSpacing,
-            ),
+            SizedBox(height: widget.titleSpacing),
 
             /// 부 제목
             Positioned(
@@ -236,14 +234,14 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
               right: 0,
               child: Center(
                 child: Container(
-                  padding: EdgeInsets.only(
-                    top: widget.titleSpacing,
-                  ),
+                  padding: EdgeInsets.only(top: widget.titleSpacing),
                   width: MediaQuery.of(context).size.width * .7,
                   child: StreamBuilder<Object>(
                     stream: indicator,
                     builder: (context, snapshot) {
-                      return widget.items[int.parse(snapshot.data?.toString() ?? '0')].subtitle;
+                      return widget
+                          .items[int.parse(snapshot.data?.toString() ?? '0')]
+                          .subtitle;
                     },
                   ),
                 ),
@@ -256,10 +254,7 @@ class _BasicCarouselEntryState extends State<BasicCarouselEntry> {
               child: SafeArea(
                 child: Center(
                   child: Column(
-                    children: [
-                      widget.start,
-                      const SizedBox(height: 16),
-                    ],
+                    children: [widget.start, const SizedBox(height: 16)],
                   ),
                 ),
               ),

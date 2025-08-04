@@ -5,11 +5,7 @@ import 'package:loop_page_view/loop_page_view.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-typedef RoundCarouselItem = ({
-  Widget title,
-  Widget subtitle,
-  Widget image,
-});
+typedef RoundCarouselItem = ({Widget title, Widget subtitle, Widget image});
 
 /// Round Carousel Entry
 ///
@@ -56,20 +52,22 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
 
     if (widget.autoSwipeInterval > 100) {
       autoSwipe = Timer.periodic(
-          Duration(milliseconds: widget.autoSwipeInterval), (timer) {
-        if (mounted) {
-          controller
-              .nextPage(
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.ease,
-          )
-              .then((value) {
-            if (!mounted) return;
-            // then 에서 해야 올바른 페이지 번호가 나옴
-            indicator.add(controller.page.toInt());
-          });
-        }
-      });
+        Duration(milliseconds: widget.autoSwipeInterval),
+        (timer) {
+          if (mounted) {
+            controller
+                .nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                )
+                .then((value) {
+                  if (!mounted) return;
+                  // then 에서 해야 올바른 페이지 번호가 나옴
+                  indicator.add(controller.page.toInt());
+                });
+          }
+        },
+      );
     }
   }
 
@@ -84,9 +82,7 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
   @override
   Widget build(BuildContext context) {
     if (widget.items.isEmpty) {
-      return const Center(
-        child: Text('No items'),
-      );
+      return const Center(child: Text('No items'));
     }
     // 스와이프 제스쳐를 받아서, ListView 나 Indicator 등을 업데이트
     return GestureDetector(
@@ -104,24 +100,24 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
             // 오른쪽으로 스와이프'
             controller
                 .previousPage(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            )
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                )
                 .then((value) {
-              // then 에서 해야 올바른 페이지 번호가 나옴
-              indicator.add(controller.page.toInt());
-            });
+                  // then 에서 해야 올바른 페이지 번호가 나옴
+                  indicator.add(controller.page.toInt());
+                });
           } else if (updateDetails!.delta.dx < 0) {
             //  왼쪽으로 스와이프'
             controller
                 .nextPage(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            )
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                )
                 .then((value) {
-              // then 에서 해야 올바른 페이지 번호가 나옴
-              indicator.add(controller.page.toInt());
-            });
+                  // then 에서 해야 올바른 페이지 번호가 나옴
+                  indicator.add(controller.page.toInt());
+                });
           }
         }
       },
@@ -133,9 +129,7 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Container(
-                color: Theme.of(context).colorScheme.surface,
-              ),
+              child: Container(color: Theme.of(context).colorScheme.surface),
             ),
 
             /// Background
@@ -182,7 +176,8 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    child: widget.bottomGradient ??
+                    child:
+                        widget.bottomGradient ??
                         Container(
                           height: MediaQuery.of(context).size.height * .3,
                           decoration: BoxDecoration(
@@ -191,7 +186,7 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
                               end: Alignment.bottomCenter,
                               colors: [
                                 Colors.transparent,
-                                Colors.black.withOpacity(.99),
+                                Colors.black.withValues(alpha: .99),
                               ],
                             ),
                           ),
@@ -210,8 +205,8 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(.7),
-                    Colors.black.withOpacity(0),
+                    Colors.black.withValues(alpha: .7),
+                    Colors.black.withValues(alpha: 0),
                   ],
                 ),
               ),
@@ -231,9 +226,7 @@ class _RoundCarouselEntryState extends State<RoundCarouselEntry> {
                           .title;
                     },
                   ),
-                  SizedBox(
-                    height: widget.titleSpacing,
-                  ),
+                  SizedBox(height: widget.titleSpacing),
                   StreamBuilder<Object>(
                     stream: indicator,
                     builder: (context, snapshot) {
