@@ -100,7 +100,7 @@ class ComicThemeData {
       ),
       colorScheme: theme.colorScheme,
 
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(comicBorderRadius),
@@ -180,7 +180,8 @@ class ComicThemeData {
         shape: comicRoundedRectangleBorder(context),
       ),
       menuBarTheme: MenuBarThemeData(
-        style: (theme.dropdownMenuTheme.menuStyle ?? const MenuStyle()).copyWith(
+        style:
+            (theme.dropdownMenuTheme.menuStyle ?? const MenuStyle()).copyWith(
           backgroundColor: WidgetStateProperty.all(
             comicContainerBackgroundColor(context),
           ),
@@ -196,7 +197,8 @@ class ComicThemeData {
       // uses the menuTheme
       // dropdownMenuTheme: const DropdownMenuThemeData(),
       menuTheme: MenuThemeData(
-        style: (theme.dropdownMenuTheme.menuStyle ?? const MenuStyle()).copyWith(
+        style:
+            (theme.dropdownMenuTheme.menuStyle ?? const MenuStyle()).copyWith(
           backgroundColor: WidgetStateProperty.all(
             comicContainerBackgroundColor(context),
           ),

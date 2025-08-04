@@ -191,7 +191,7 @@ class SleekThemeData {
       // ),
       colorScheme: Theme.of(context).colorScheme,
       dialogBackgroundColor: containerBackgroundColor(context),
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         iconColor: theme.colorScheme.primary,
       ),
       drawerTheme: theme.drawerTheme.copyWith(
@@ -356,7 +356,7 @@ class SleekThemeData {
           elevation: 0,
         ),
       ),
-      tabBarTheme: TabBarTheme(
+      tabBarTheme: TabBarThemeData(
         indicator: BoxDecoration(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(12),
